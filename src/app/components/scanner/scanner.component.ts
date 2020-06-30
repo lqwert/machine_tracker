@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input, OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
 // SCANNER
 import { BarcodeScanner, BarcodeScanResult } from '@ionic-native/barcode-scanner/ngx';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -10,28 +11,36 @@ import { BarcodeScanner, BarcodeScanResult } from '@ionic-native/barcode-scanner
 })
 export class ScannerComponent implements OnInit, OnChanges {
 
-  @Input() activateScanner: boolean = false;
-  @Output() code: EventEmitter<BarcodeScanResult> = new EventEmitter<BarcodeScanResult>();
+  @Output() code = new EventEmitter<BarcodeScanResult>();
 
-  constructor(private barcodeScanner: BarcodeScanner) { }
+  constructor(
+    private barcodeScanner: BarcodeScanner,
+    public activeRoute: ActivatedRoute,) { }
 
   ngOnInit() {
-    console.log('init: ', this.activateScanner);
-    if (this.activateScanner) this.scan();
+    this.activeRoute.params.subscribe(_ => {
+      console.log('route active scanner');
+      this.scan()
+    })
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
+    // console.log(changes);
+    // if (changes.activateScanner) this.scan();
   }
 
   scan() {
     this.barcodeScanner.scan().then(barcodeData => {
       console.log('Barcode data', barcodeData);
       this.code.emit(barcodeData);
-      this.activateScanner = false;
-     }).catch(err => {
-         console.log('Error', err);
-     });
+    }).catch(err => {
+      console.error('Error', err);
+    });
+    
+    // TESTING WITHOUT SCANNER
+    const barcode = {} as BarcodeScanResult;
+    barcode.text = Math.floor(Math.random() * 3).toString(); 
+    this.code.emit(barcode);
   }
 
 }

@@ -5,5 +5,19 @@
 </ion-header>
 
 <ion-content>
-  <scanner [activateScanner]="true" (code)="code($event)"></scanner>
+  <div slot="fixed" class="content-container size-full" *ngIf="!scannerActive && scannedMachine">
+    <h1>{{scannedMachine.name}} ({{scannedCode}})</h1>
+    <h3>{{displayTime}}</h3>
+    <ion-button (click)="finished()">Finnish</ion-button>
+  </div>
+  <scanner *ngIf="scannerActive" (code)="code($event)"></scanner>
+  <!-- -->
+  <div slot="fixed" class="timer-container-top size-full"
+    [style.background]="clockDiv == 0 ? clockColor : backgroundColor"></div>
+  <div slot="fixed" class="timer-container-right size-full"
+    [style.background]="clockDiv == 1 ? clockColor : backgroundColor"></div>
+  <div slot="fixed" class="timer-container-bottom size-full"
+    [style.background]="clockDiv == 2 ? clockColor : backgroundColor"></div>
+  <div slot="fixed" class="timer-container-left size-full"
+    [style.background]="clockDiv == 3 ? clockColor : backgroundColor"></div>
 </ion-content>

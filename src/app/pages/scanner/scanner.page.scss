@@ -1,4 +1,46 @@
-.scanner {
-    height: 200px;
-    width: 50px;
+ion-content {
+    height: 100%;
+    border: groove;
+    display: grid;
+    grid-template-columns: 20px 20px auto 20px 20px;
+    grid-template-rows: 25% 20px auto 20px 25%;
+    grid-template-areas: 
+        "space space space space space"
+        "space timer timer timer space"
+        "space timer conte timer space" 
+        "space timer timer timer space"
+        "space space space space space";
 }
+
+.content-container {
+    grid-area: 3 / 3 / 3 / 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.timer-container-top {
+    grid-area: 2 / 2 / 2 / 5;
+}
+
+.timer-container-right {
+    grid-area: 3 / 4 / 3 / 4;
+}
+
+.timer-container-bottom {
+    grid-area: 4 / 2 / 4 / 5;
+}
+
+.timer-container-left {
+    grid-area: 3 / 2 / 3 / 2;
+}
+
+.size-full {
+    // border: groove;
+    width: 100%;
+    height: 100%;
+}
+
+
+

@@ -21,7 +21,6 @@ import { MachineService } from 'src/app/shared';
     SettingsPage
   ],
   providers: [
-    MachineService
   ]
 
 })
