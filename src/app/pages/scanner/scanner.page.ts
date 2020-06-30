@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+// SCANNER
+import { BarcodeScanResult } from '@ionic-native/barcode-scanner/ngx';
 
 @Component({
   selector: 'app-scanner',
@@ -7,10 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ScannerPage implements OnInit {
 
-  constructor() { }
+  activeCode: string;
+
+  constructor() {
+   }
 
   ngOnInit() {
-    console.log('initalise QRScanner Component')
+    console.log('int scan page');
+  }
+
+  code(code: BarcodeScanResult) {
+    console.log(code);
+    this.activeCode = code.text;
   }
 
 }
