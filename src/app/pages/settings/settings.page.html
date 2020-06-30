@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>settings</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>New Machine</ion-label>
+      <ion-input></ion-input>
+      <ion-button slot="end">Add</ion-button>
+    </ion-item>
+    <ion-item *ngFor="let machine of machines">
+      <ion-label>{{machine.name}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>ShowCase</ion-label>
+      <ion-toggle slot="end"></ion-toggle>
+    </ion-item>
+  </ion-list>
+</ion-content>
