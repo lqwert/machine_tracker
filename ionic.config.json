@@ -1,0 +1,7 @@
+{
+  "name": "machine_tracker",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
