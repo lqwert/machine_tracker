@@ -1,0 +1,29 @@
+.work-color-container {
+    // z-index: 0;
+    height: 100%;
+    // box-sizing: border-box;
+    width: 100%;
+    // position: absolute;
+    
+    // 
+    // border: groove;
+}
+
+.work-color-lines {
+    height: 5px;
+    // height: calc(100% / 15);
+    display: inline-block;
+    flex: 1 1 auto;
+    // height: 100%;
+    // width: 100%;
+    // border: groove;
+}
+
+.item {
+    // border: groove;
+    margin: 2px 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+}

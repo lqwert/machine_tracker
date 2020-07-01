@@ -1,0 +1,17 @@
+<ion-list>
+  <!-- <ion-item *ngFor="let item of timeList">
+   
+    <div class="work-color-container">
+      
+    </div>
+    <ion-label [style.background]="item.color"> 
+      {{item.title}}
+    </ion-label>
+  </ion-item> -->
+  <ng-container *ngFor="let item of timeList">
+      <div class="item" [style.height.px]="item.height">
+        <div *ngFor="let color of item.minuteLines" class="work-color-lines" [style.background]="color"></div>
+      </div>
+  </ng-container>
+
+</ion-list>
