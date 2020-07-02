@@ -8,10 +8,20 @@
       {{item.title}}
     </ion-label>
   </ion-item> -->
-  <ng-container *ngFor="let item of timeList">
-      <div class="item" [style.height.px]="item.height">
-        <div *ngFor="let color of item.minuteLines" class="work-color-lines" [style.background]="color"></div>
-      </div>
-  </ng-container>
+  <!-- <ng-container> -->
+  <div *ngFor="let item of timeList; ; index as i;" class="item" [style.height.px]="item.height"
+    [style.background]="item.color ? item.color + '80' : '#00000000'">
+    <div *ngIf="i % 15 == 0" class="item-label">
+      <ion-label>
+        {{item.title}}
+      </ion-label>
+    </div>
+    <div *ngIf="item.machineName" class="item-machine-label">
+      <ion-label>
+        {{item.machineName}}
+      </ion-label>
+    </div>
+  </div>
+  <!-- </ng-container> -->
 
 </ion-list>
