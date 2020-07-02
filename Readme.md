@@ -6,3 +6,5 @@
 ### TODO
 * light/dark mode
 * color picker (free)
+* edit entries manual
+* color picker show color in option

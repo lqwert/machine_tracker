@@ -1,10 +1,11 @@
 // ANGULAR
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 // SCANNER
 import { BarcodeScanResult } from '@ionic-native/barcode-scanner/ngx';
 import { interval, Subscription } from 'rxjs';
-import { MachineModel, MachineService } from 'src/app/shared';
+import { MachineModel, MachineService, TimeService, TimeModel } from 'src/app/shared';
+import { SettingsService } from 'src/app/shared/_settings/settings.service';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class ScannerPage implements OnInit {
   scannerActive = true;
   scannedCode: string;
   scannedMachine: MachineModel;
-  displayTime: string;
+  displayTime = '00:00:00';
   // UI Clock
   clockColor = '#ffffff'
   clockDiv = 0;
@@ -33,6 +34,8 @@ export class ScannerPage implements OnInit {
     public activeRoute: ActivatedRoute,
     private ref: ChangeDetectorRef,
     private machineService: MachineService,
+    private timeService: TimeService,
+    private settingsService: SettingsService,
   ) { }
 
   ngOnInit() {
@@ -44,14 +47,14 @@ export class ScannerPage implements OnInit {
   getMachines() {
     this.machineService.getMachines().subscribe(res => {
       this.machines = res;
-      if (!this.scannedMachine) this.setupMachine();
+      this.setupClock();
     })
   }
 
   code(code: BarcodeScanResult) {
     this.scannedCode = code.text;
-    if (this.machines) this.setupMachine();
-    console.log(this.scannedMachine);
+    this.setupClock();
+    // console.log(this.scannedMachine);
     this.scannerActive = false;
     this.ref.detectChanges();
     this.setupTimer();
@@ -60,23 +63,32 @@ export class ScannerPage implements OnInit {
   finished() {
     this.scannerActive = true;
     this.clockDiv = 0;
+    this.displayTime = '00:00:00'
     this.ref.detectChanges();
     this.subscription.unsubscribe();
-  }
-
-  setupTimer() {
-    this.startTime = new Date(0);
-    this.endTime = new Date(0);
-    this.subscription = interval(1000).subscribe(res => {
-      this.endTime = new Date(this.endTime.getTime() + 1000);
-      console.log(this.endTime);
-      this.clockDiv =  Math.floor(this.endTime.getSeconds() / 15);
-      console.log(this.clockDiv);
-      this.displayTime = new Date(this.endTime.getTime() - this.startTime.getTime()).toISOString().slice(11, 19);
+    this.timeService.createTime(new TimeModel(this.startTime, this.endTime, this.scannedMachine)).subscribe(res => {
+      console.log(res);
     })
   }
 
-  setupMachine() {
+  setupTimer() {
+    this.startTime = new Date();
+    this.endTime = new Date();
+    this.subscription = interval(1000).subscribe(res => {
+      // START: DEVELOPER
+      const time = this.settingsService.getTimerSpeedValue() ? 60000 : 1000;
+      console.log(time);
+       // END: DEVELOPER
+      this.endTime = new Date(this.endTime.getTime() + time);
+      const displayDate = new Date(this.endTime.getTime() - this.startTime.getTime())
+      console.log(displayDate);
+      this.clockDiv =  Math.floor(displayDate.getSeconds() / 15);
+      this.displayTime = displayDate.toISOString().slice(11, 19);
+    })
+  }
+
+  setupClock() {
+    if (!this.scannedCode || !this.machines) return
     this.scannedMachine = this.machines.find(machine => machine.codeId == this.scannedCode);
     this.clockColor = this.scannedMachine.color;
   }

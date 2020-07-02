@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MachineModel, MachineService } from 'src/app/shared';
+import { SettingsService } from 'src/app/shared/_settings/settings.service';
 
 @Component({
   selector: 'app-settings',
@@ -8,17 +8,30 @@ import { MachineModel, MachineService } from 'src/app/shared';
 })
 export class SettingsPage implements OnInit {
 
-  machines: MachineModel[];
+  dummyData: boolean;
+  disableScanner: boolean
+  timerSpeed: boolean;
 
   constructor(
-    private machineService: MachineService
+    private settingsService: SettingsService
   ) { }
 
   ngOnInit() {
-    this.machineService.getMachines().subscribe(res => {
-      console.log(res);
-      this.machines = res;
-    })
+    this.dummyData = this.settingsService.getDummyDataValue();
+    this.disableScanner = this.settingsService.getDisableScannerValue();
+    this.timerSpeed = this.settingsService.getTimerSpeedValue();
+  }
+
+  changeDummyData(change: CustomEvent) {
+    this.settingsService.changeDummyData(change.detail.checked);
+  }
+
+  changeDisableScanner(change: CustomEvent) {
+    this.settingsService.changeDisableScanner(change.detail.checked);
+  }
+
+  changeTimerSpeed(change: CustomEvent) {
+    this.settingsService.changeTimerSpeed(change.detail.checked)
   }
 
 }

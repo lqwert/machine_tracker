@@ -1,22 +1,35 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>settings</ion-title>
+  <ion-toolbar translucent>
+    <ion-title>Settings</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-list-header>
+    General
+  </ion-list-header>
+  <ion-list>
+    <ion-item detail [routerLink]="['machines']" routerDirection="forward">
+      <ion-label>
+        Machines
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-list-header>
+    Dummy Data/Developer
+  </ion-list-header>
   <ion-list>
     <ion-item>
-      <ion-label>New Machine</ion-label>
-      <ion-input></ion-input>
-      <ion-button slot="end">Add</ion-button>
-    </ion-item>
-    <ion-item *ngFor="let machine of machines">
-      <ion-label>{{machine.name}}</ion-label>
+      <ion-label>Dummy Data</ion-label>
+      <ion-toggle slot="end" [checked]="dummyData" (ionChange)=changeDummyData($event)></ion-toggle>
     </ion-item>
     <ion-item>
-      <ion-label>ShowCase</ion-label>
-      <ion-toggle slot="end"></ion-toggle>
+      <ion-label>Disable Scanner</ion-label>
+      <ion-toggle slot="end" [checked]="disableScanner" (ionChange)=changeDisableScanner($event)></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label>Set Timer to 1 minute in 1 second</ion-label>
+      <ion-toggle slot="end" [checked]="timerSpeed" (ionChange)=changeTimerSpeed($event)></ion-toggle>
     </ion-item>
   </ion-list>
 </ion-content>

@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input, OnChanges, SimpleChange
 // SCANNER
 import { BarcodeScanner, BarcodeScanResult } from '@ionic-native/barcode-scanner/ngx';
 import { ActivatedRoute } from '@angular/router';
+import { SettingsService } from 'src/app/shared/_settings/settings.service';
 
 
 @Component({
@@ -9,24 +10,23 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './scanner.component.html',
   styleUrls: ['./scanner.component.scss'],
 })
-export class ScannerComponent implements OnInit, OnChanges {
+export class ScannerComponent implements OnInit {
 
   @Output() code = new EventEmitter<BarcodeScanResult>();
 
   constructor(
     private barcodeScanner: BarcodeScanner,
-    public activeRoute: ActivatedRoute,) { }
+    private settingsService: SettingsService,
+    public activeRoute: ActivatedRoute,
+    ) { }
 
   ngOnInit() {
     this.activeRoute.params.subscribe(_ => {
       console.log('route active scanner');
-      this.scan()
+      // START DEVELOPER
+      if (!this.settingsService.getDisableScannerValue()) this.scan()
+      // END DEVELOPER
     })
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    // console.log(changes);
-    // if (changes.activateScanner) this.scan();
   }
 
   scan() {
@@ -36,8 +36,10 @@ export class ScannerComponent implements OnInit, OnChanges {
     }).catch(err => {
       console.error('Error', err);
     });
-    
-    // TESTING WITHOUT SCANNER
+  }
+
+   // TESTING WITHOUT SCANNER (Browser)
+  simulateScan() {
     const barcode = {} as BarcodeScanResult;
     barcode.text = Math.floor(Math.random() * 3).toString(); 
     this.code.emit(barcode);

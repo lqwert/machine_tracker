@@ -1,23 +1,25 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>scanner</ion-title>
+    <ion-title>Scanner</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div slot="fixed" class="content-container size-full" *ngIf="!scannerActive && scannedMachine">
+  <div slot="fixed" class="content-container size-full" *ngIf="!scannerActive">
     <h1>{{scannedMachine.name}} ({{scannedCode}})</h1>
     <h3>{{displayTime}}</h3>
     <ion-button (click)="finished()">Finnish</ion-button>
   </div>
-  <scanner *ngIf="scannerActive" (code)="code($event)"></scanner>
+  <scanner *ngIf="scannerActive" slot="fixed" class="content-container size-full" (code)="code($event)"></scanner>
   <!-- -->
-  <div slot="fixed" class="timer-container-top size-full"
-    [style.background]="clockDiv == 0 ? clockColor : backgroundColor"></div>
-  <div slot="fixed" class="timer-container-right size-full"
-    [style.background]="clockDiv == 1 ? clockColor : backgroundColor"></div>
-  <div slot="fixed" class="timer-container-bottom size-full"
-    [style.background]="clockDiv == 2 ? clockColor : backgroundColor"></div>
-  <div slot="fixed" class="timer-container-left size-full"
-    [style.background]="clockDiv == 3 ? clockColor : backgroundColor"></div>
+  <ng-container *ngIf="!scannerActive && scannedMachine">
+    <div slot="fixed" class="timer-container-top size-full"
+      [style.background]="clockDiv == 0 ? clockColor : backgroundColor"></div>
+    <div slot="fixed" class="timer-container-right size-full"
+      [style.background]="clockDiv == 1 ? clockColor : backgroundColor"></div>
+    <div slot="fixed" class="timer-container-bottom size-full"
+      [style.background]="clockDiv == 2 ? clockColor : backgroundColor"></div>
+    <div slot="fixed" class="timer-container-left size-full"
+      [style.background]="clockDiv == 3 ? clockColor : backgroundColor"></div>
+  </ng-container>
 </ion-content>

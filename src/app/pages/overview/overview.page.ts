@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { TimeService, TimeModel } from 'src/app/shared';
+import { ActivatedRoute } from '@angular/router';
+import { SettingsService } from 'src/app/shared/_settings/settings.service';
 
 
 
@@ -13,13 +15,23 @@ export class OverviewPage implements OnInit {
   timeDay: TimeModel[];
 
   constructor(
-    private timeService: TimeService
+    private timeService: TimeService,
+    public activeRoute: ActivatedRoute,
+    private settingsService: SettingsService,
+    private ref: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
+    this.activeRoute.params.subscribe(_ => {
+      this.getWorkToday();
+    })
+  }
+
+  getWorkToday() {
     this.timeService.getToday().subscribe(res => {
-      this.timeDay = res;
-      console.log(this.timeDay);
+      console.log(res);
+      this.timeDay = res;   
+      this.ref.detectChanges();   
     })
   }
 
