@@ -1,3 +1,15 @@
 <div class="scanner-container">
-  <ion-button (click)="simulateScan()">Simulate Scan</ion-button>
+  <h1 class="heading">Press screen to scan code of machine or select machine and press "Start Work"</h1>
+  <div class="button-scan" (click)="submit()"></div>
+  <div class="select-work">
+    <ion-item>
+      <ion-label>Machine</ion-label>
+      <!-- ngModel did not work-->
+      <!-- <ion-select [(ngModel)]="selectedMachine"> -->
+      <ion-select [value]="selectedMachine" (ionChange)="workValue($event)">
+        <ion-select-option *ngFor="let machine of machines" value="{{machine.codeId}}">{{machine.name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-button expand="block" (click)="work()">Start Work</ion-button> 
+  </div>
 </div>

@@ -11,6 +11,8 @@ import { AppComponent } from './app.component';
 
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -19,6 +21,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
     StatusBar,
     SplashScreen,
     BarcodeScanner,
+    NativeStorage,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

@@ -47,7 +47,6 @@ export class ScannerPage implements OnInit {
   getMachines() {
     this.machineService.getMachines().subscribe(res => {
       this.machines = res;
-      this.setupClock();
     })
   }
 
@@ -77,11 +76,9 @@ export class ScannerPage implements OnInit {
     this.subscription = interval(1000).subscribe(res => {
       // START: DEVELOPER
       const time = this.settingsService.getTimerSpeedValue() ? 60000 : 1000;
-      console.log(time);
        // END: DEVELOPER
       this.endTime = new Date(this.endTime.getTime() + time);
       const displayDate = new Date(this.endTime.getTime() - this.startTime.getTime())
-      console.log(displayDate);
       this.clockDiv =  Math.floor(displayDate.getSeconds() / 15);
       this.displayTime = displayDate.toISOString().slice(11, 19);
     })

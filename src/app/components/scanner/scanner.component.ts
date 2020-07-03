@@ -3,6 +3,7 @@ import { Component, OnInit, Output, EventEmitter, Input, OnChanges, SimpleChange
 import { BarcodeScanner, BarcodeScanResult } from '@ionic-native/barcode-scanner/ngx';
 import { ActivatedRoute } from '@angular/router';
 import { SettingsService } from 'src/app/shared/_settings/settings.service';
+import { MachineService, MachineModel } from 'src/app/shared';
 
 
 @Component({
@@ -14,19 +15,34 @@ export class ScannerComponent implements OnInit {
 
   @Output() code = new EventEmitter<BarcodeScanResult>();
 
+  scannerDisabled: boolean;
+  machines: MachineModel[] = [];
+  selectedMachine: string;
+
   constructor(
     private barcodeScanner: BarcodeScanner,
     private settingsService: SettingsService,
     public activeRoute: ActivatedRoute,
-    ) { }
+    // START DEVELOPER
+    private machineService: MachineService,
+    // END DEVELOPER
+  ) { }
 
   ngOnInit() {
     this.activeRoute.params.subscribe(_ => {
       console.log('route active scanner');
+      this.selectedMachine = this.settingsService.getDefaultMachineValue();
+      this.machineService.getMachines().subscribe(res => {
+        this.machines = res;
+      })
       // START DEVELOPER
-      if (!this.settingsService.getDisableScannerValue()) this.scan()
+      this.scannerDisabled = this.settingsService.getDisableScannerValue();
       // END DEVELOPER
     })
+  }
+
+  submit() {
+    this.scannerDisabled ? this.simulateScan() : this.scan();
   }
 
   scan() {
@@ -38,11 +54,23 @@ export class ScannerComponent implements OnInit {
     });
   }
 
-   // TESTING WITHOUT SCANNER (Browser)
-  simulateScan() {
+  workValue(event: CustomEvent) {
+    this.selectedMachine = event.detail.value;
+  }
+
+  work() {
     const barcode = {} as BarcodeScanResult;
-    barcode.text = Math.floor(Math.random() * 3).toString(); 
+    barcode.text = this.selectedMachine;
     this.code.emit(barcode);
+  }
+
+  // TESTING WITHOUT SCANNER (Browser)
+  simulateScan() {
+    this.machineService.getMachines().subscribe(res => {
+      const barcode = {} as BarcodeScanResult;
+      barcode.text = Math.floor(Math.random() * res.length).toString();
+      this.code.emit(barcode);
+    })
   }
 
 }

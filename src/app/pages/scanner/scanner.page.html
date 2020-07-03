@@ -10,16 +10,16 @@
     <h3>{{displayTime}}</h3>
     <ion-button (click)="finished()">Finnish</ion-button>
   </div>
-  <scanner *ngIf="scannerActive" slot="fixed" class="content-container size-full" (code)="code($event)"></scanner>
+  <scanner *ngIf="scannerActive" slot="fixed" class="size-full" (code)="code($event)"></scanner>
   <!-- -->
   <ng-container *ngIf="!scannerActive && scannedMachine">
     <div slot="fixed" class="timer-container-top size-full"
-      [style.background]="clockDiv == 0 ? clockColor : backgroundColor"></div>
+      [style.background]="clockDiv == 0 ? clockColor : clockColor + '4D'"></div>
     <div slot="fixed" class="timer-container-right size-full"
-      [style.background]="clockDiv == 1 ? clockColor : backgroundColor"></div>
+      [style.background]="clockDiv == 1 ? clockColor : clockColor + '80'"></div>
     <div slot="fixed" class="timer-container-bottom size-full"
-      [style.background]="clockDiv == 2 ? clockColor : backgroundColor"></div>
+      [style.background]="clockDiv == 2 ? clockColor : clockColor + '4D'"></div>
     <div slot="fixed" class="timer-container-left size-full"
-      [style.background]="clockDiv == 3 ? clockColor : backgroundColor"></div>
+      [style.background]="clockDiv == 3 ? clockColor : clockColor + '80'"></div>
   </ng-container>
 </ion-content>

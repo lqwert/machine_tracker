@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { TimeService, TimeModel } from 'src/app/shared';
 import { ActivatedRoute } from '@angular/router';
 import { SettingsService } from 'src/app/shared/_settings/settings.service';
+import { ToastController } from '@ionic/angular';
 
 
 
@@ -16,9 +17,9 @@ export class OverviewPage implements OnInit {
 
   constructor(
     private timeService: TimeService,
+    private ref: ChangeDetectorRef,
     public activeRoute: ActivatedRoute,
-    private settingsService: SettingsService,
-    private ref: ChangeDetectorRef
+    public toastController: ToastController,  
   ) { }
 
   ngOnInit() {
@@ -33,6 +34,16 @@ export class OverviewPage implements OnInit {
       this.timeDay = res;   
       this.ref.detectChanges();   
     })
+  }
+
+  async print() {
+    const toast = await this.toastController.create({
+      header: 'Development info',
+      message: 'One day you will press this and can print your work ;)',
+      duration: 2000,
+      position: 'middle',
+    });
+    toast.present();
   }
 
 }

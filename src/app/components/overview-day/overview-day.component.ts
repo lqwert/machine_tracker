@@ -12,13 +12,15 @@ export class OverviewDayComponent implements OnInit {
   // @Input() timeDay: TimeModel[];
   @Input() set _timeDay(_timeDay: TimeModel[]) {
     console.log(_timeDay)
-    this.timeDay = _timeDay;
-    this.initalTimeList();
-    this.setupColors();
+    if (_timeDay) {
+      this.timeDay = _timeDay;
+      this.initalTimeList();
+      this.setupColors();
+    }
   }
 
-  private timeDay: TimeModel[];
-  timeList: OverviewDayModel[];
+  timeDay: TimeModel[];
+  timeList: OverviewDayModel[] = [];
 
   constructor() { }
 
@@ -62,6 +64,7 @@ export class OverviewDayComponent implements OnInit {
           if (_i % 15 == 14 && this.timeList[_i - 7].color == workNow.machine.color) this.timeList[_i - 8].machineName = workNow.machine.name;
         }
         if (0 == this.timeDay.length) return
+        _i--;
         workNow = this.timeDay.splice(0, 1)[0];
       }
     }
