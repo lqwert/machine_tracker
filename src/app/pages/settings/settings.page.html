@@ -14,6 +14,12 @@
         Machines
       </ion-label>
     </ion-item>
+    <ion-item>
+      <ion-label>Default Machine</ion-label>
+      <ion-select [value]="defaultMachine" (ionChange)="changeDefaultMachine($event)">
+        <ion-select-option *ngFor="let machine of machines" value="{{machine.codeId}}">{{machine.name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
   </ion-list>
   <ion-list-header>
     Dummy Data/Developer
