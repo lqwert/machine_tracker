@@ -30,7 +30,6 @@ export class OverviewPage implements OnInit {
 
   getWorkToday() {
     this.timeService.getToday().subscribe(res => {
-      console.log(res);
       this.timeDay = res;   
       this.ref.detectChanges();   
     })

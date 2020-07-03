@@ -14,7 +14,7 @@ export const TIME_6 = new TimeModel(new Date(Date.UTC(96, 1, 2, 12, 0, 0)), new 
 // CASE WORK IS LESS THEN A SECOND
 export const TIME_7 = new TimeModel(new Date(Date.UTC(96, 1, 2, 14, 0, 0)), new Date(Date.UTC(96, 1, 2, 14, 0, 32)), machineDataDummy[1]);
 export const TIME_8 = new TimeModel(new Date(Date.UTC(96, 1, 2, 14, 0, 54)), new Date(Date.UTC(96, 1, 2, 14, 1, 34)), machineDataDummy[3]);
-export const TIME_9 = new TimeModel(new Date(Date.UTC(96, 1, 2, 14, 2, 33)), new Date(Date.UTC(96, 1, 2, 15, 1, 34)), machineDataDummy[1]);
+export const TIME_9 = new TimeModel(new Date(Date.UTC(96, 1, 2, 14, 2, 33)), new Date(Date.UTC(96, 1, 2, 15, 1, 34)), machineDataDummy[2]);
 // MORE RANDOM TIME
 export const TIME_10 = new TimeModel(new Date(Date.UTC(96, 1, 2, 15, 2, 32)), new Date(Date.UTC(96, 1, 2, 15, 32, 23)), machineDataDummy[0]);
 export const TIME_11 = new TimeModel(new Date(Date.UTC(96, 1, 2, 15, 32, 23)), new Date(Date.UTC(96, 1, 2, 15, 55, 22)), machineDataDummy[4]);

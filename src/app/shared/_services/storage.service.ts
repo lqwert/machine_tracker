@@ -47,7 +47,7 @@ export class StorageService {
           const savedWorkTime = JSON.parse(data) as TimeModel[];
           savedWorkTime.forEach(time => {
             time.startTime = new Date(time.startTime);
-            time.endTime = new Date(time.startTime);
+            time.endTime = new Date(time.endTime);
           })
           return savedWorkTime;
         },
@@ -56,5 +56,9 @@ export class StorageService {
           return [];
         }
       );
+  }
+
+  deleteSavedWorkTime() {
+    this.nativeStorage.remove(this.workTimeKey);
   }
 }

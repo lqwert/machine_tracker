@@ -11,7 +11,6 @@ export class OverviewDayComponent implements OnInit {
 
   // @Input() timeDay: TimeModel[];
   @Input() set _timeDay(_timeDay: TimeModel[]) {
-    console.log(_timeDay)
     if (_timeDay) {
       this.timeDay = _timeDay;
       this.initalTimeList();
@@ -58,6 +57,7 @@ export class OverviewDayComponent implements OnInit {
       if (startTimeMinutes === startWorkMinutes) {
         this.timeList[_i].color = workNow.machine.color;
         while (endWorkMinutes > endTimeMinutes) {
+          console.log(this.timeList[_i].startTime, workNow.startTime, workNow.endTime, this.timeList[_i].endTime);
           _i++;
           endTimeMinutes = (this.timeList[_i].endTime.getHours() * 60) + this.timeList[_i].endTime.getMinutes();
           this.timeList[_i].color = workNow.machine.color;
@@ -71,12 +71,6 @@ export class OverviewDayComponent implements OnInit {
   }
 
   setupColors() {
-    console.log(this.timeDay);
-    // if (2 <= this.timeDay.length ) {
-    //   const workNow = this.timeDay.splice(0, 1)[0];
-    //   const nextWork = this.timeDay.splice(0, 1)[0];
-    //   this.setColors(workNow, nextWork)
-    // } else 
     if (this.timeDay.length >= 1) {
       const workNow = this.timeDay.splice(0, 1)[0];
       this.setColors(workNow);

@@ -1,7 +1,7 @@
 <div class="scanner-container">
   <h1 class="heading">Press screen to scan code of machine or select machine and press "Start Work"</h1>
   <div class="button-scan" (click)="submit()"></div>
-  <div class="select-work">
+  <div *ngIf="!machineScan" class="select-work">
     <ion-item>
       <ion-label>Machine</ion-label>
       <!-- ngModel did not work-->

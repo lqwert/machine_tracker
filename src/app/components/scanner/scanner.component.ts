@@ -13,6 +13,7 @@ import { MachineService, MachineModel } from 'src/app/shared';
 })
 export class ScannerComponent implements OnInit {
 
+  @Input() machineScan = false;
   @Output() code = new EventEmitter<BarcodeScanResult>();
 
   scannerDisabled: boolean;

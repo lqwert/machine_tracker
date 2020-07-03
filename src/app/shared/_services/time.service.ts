@@ -22,7 +22,9 @@ export class TimeService implements OnInit {
    * GET
    */
   getToday(): Observable<TimeModel[]> {
-    return this.settingsService.getDummyDataValue() ? of([TIME_1, TIME_2, TIME_3, TIME_4, TIME_5, TIME_6, TIME_7, TIME_8, TIME_9, TIME_10, TIME_11, TIME_12, TIME_13, TIME_14]) : from(this.storageService.getSavedWorkTime());
+    return this.settingsService.getDummyDataValue() ? 
+    of([TIME_1, TIME_2, TIME_3, TIME_4, TIME_5, TIME_6, TIME_7, TIME_8, TIME_9, TIME_10, TIME_11, TIME_12, TIME_13, TIME_14]) : 
+    from(this.storageService.getSavedWorkTime());
   }
 
   /**
@@ -31,7 +33,6 @@ export class TimeService implements OnInit {
   createTime(time: TimeModel): Observable<TimeModel> {
     timeDataDummy.push(time);
     this.storageService.saveWorkTime(time);
-    this.storageService.getSavedWorkTime();
     return of(time);
   }
 }

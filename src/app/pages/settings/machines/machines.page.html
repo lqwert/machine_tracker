@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <scanner *ngIf="showScanner" (code)="code($event)"></scanner>
+  <scanner *ngIf="showScanner" [machineScan]="true" (code)="code($event)"></scanner>
   <ng-container *ngIf="!showScanner">
     <form [formGroup]="machine" (ngSubmit)="submit()">
       <ion-item>

@@ -17,8 +17,13 @@
     <ion-item>
       <ion-label>Default Machine</ion-label>
       <ion-select [value]="defaultMachine" (ionChange)="changeDefaultMachine($event)">
-        <ion-select-option *ngFor="let machine of machines" value="{{machine.codeId}}">{{machine.name}}</ion-select-option>
+        <ion-select-option *ngFor="let machine of machines" value="{{machine.codeId}}">{{machine.name}}
+        </ion-select-option>
       </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Dark Mode</ion-label>
+      <ion-toggle slot="end" [checked]="true" (ionChange)=changeTheme($event)></ion-toggle>
     </ion-item>
   </ion-list>
   <ion-list-header>
@@ -36,6 +41,17 @@
     <ion-item>
       <ion-label>Set Timer to 1 minute in 1 second</ion-label>
       <ion-toggle slot="end" [checked]="timerSpeed" (ionChange)=changeTimerSpeed($event)></ion-toggle>
+    </ion-item>
+    <ion-button expand="block" (click)="deleteWorkTime()">Delete Work Time</ion-button>
+  </ion-list>
+  <ion-list-header>
+    Current Data ({{workTimes.length}})
+  </ion-list-header>
+  <ion-list>
+    <ion-item *ngFor="let workTime of workTimes">
+      <ion-label>{{workTime.startTime | date : 'H:mm:ss'}} - {{workTime.endTime | date : 'H:mm:ss'}}
+      </ion-label>
+      <ion-label>{{workTime.machine.name}}</ion-label>
     </ion-item>
   </ion-list>
 </ion-content>
